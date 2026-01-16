@@ -55,11 +55,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24 md:pb-0">
+    <div className="min-h-screen pb-16 md:pb-0">
       <nav className="border-b border-white/5 bg-[#121212]/80 backdrop-blur-xl py-6 px-8 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div 
-            className="flex items-center gap-4 cursor-pointer group" 
+          <div
+            className="flex items-center gap-4 cursor-pointer group"
             onClick={() => setView(AppView.DASHBOARD)}
           >
             <div className="w-14 h-14 lime-gradient rounded-2xl flex items-center justify-center text-black shadow-[0_4px_0_0_#4d7c0f] rotate-2 group-hover:rotate-0 transition-transform">
@@ -70,12 +70,12 @@ const App: React.FC = () => {
               <span className="text-[10px] font-black text-lime-400 uppercase tracking-[0.3em]">Utah Ver. 2026</span>
             </div>
           </div>
-          
+
           <div className="hidden lg:flex gap-12 font-black text-xs uppercase tracking-[0.2em] text-white/40">
             {Object.values(AppView).filter(v => v !== 'EXAM_REVIEW').map(v => (
-              <button 
+              <button
                 key={v}
-                onClick={() => setView(v as AppView)} 
+                onClick={() => setView(v as AppView)}
                 className={`transition-colors hover:text-white ${view === v ? 'text-lime-400' : ''}`}
               >
                 {v.replace('_', ' ')}
@@ -84,18 +84,18 @@ const App: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-             <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative">
-                <i className="fas fa-fire text-orange-500 text-xl"></i>
-                <span className="absolute -top-1 -right-1 bg-white text-black text-[8px] font-black px-1.5 rounded-full">0</span>
-             </div>
-             <div className="w-12 h-12 rounded-full border-2 border-lime-400 p-1">
-               <img src="Birdie.jpeg" alt="Birdie Avatar" className="w-full h-full rounded-full object-cover" />
-             </div>
+            <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative">
+              <i className="fas fa-fire text-orange-500 text-xl"></i>
+              <span className="absolute -top-1 -right-1 bg-white text-black text-[8px] font-black px-1.5 rounded-full">0</span>
+            </div>
+            <div className="w-12 h-12 rounded-full border-2 border-lime-400 p-1">
+              <img src="Birdie.jpeg" alt="Birdie Avatar" className="w-full h-full rounded-full object-cover" />
+            </div>
           </div>
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-6 py-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <main className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
         {view === AppView.DASHBOARD && <Dashboard stats={stats} onNavigate={setView} />}
         {view === AppView.QUIZ && <Quiz onExit={handleQuizFinish} />}
         {view === AppView.STAT_LAB && <StatLab onExit={() => setView(AppView.DASHBOARD)} />}
@@ -108,14 +108,14 @@ const App: React.FC = () => {
       </main>
 
       {/* Mobile Nav */}
-      <div className="fixed bottom-6 left-6 right-6 p-2 bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 md:hidden flex justify-around items-center z-50">
-        <button onClick={() => setView(AppView.DASHBOARD)} className={`p-4 rounded-2xl ${view === AppView.DASHBOARD ? 'bg-lime-400 text-black' : 'text-white/40'}`}>
+      <div className="fixed bottom-3 left-3 right-3 p-1.5 bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 md:hidden flex justify-around items-center z-50">
+        <button onClick={() => setView(AppView.DASHBOARD)} className={`p-2.5 rounded-xl text-sm ${view === AppView.DASHBOARD ? 'bg-lime-400 text-black' : 'text-white/40'}`}>
           <i className="fas fa-home"></i>
         </button>
-        <button onClick={() => setView(AppView.HANDBOOK)} className={`p-4 rounded-2xl ${view === AppView.HANDBOOK ? 'bg-lime-400 text-black' : 'text-white/40'}`}>
+        <button onClick={() => setView(AppView.HANDBOOK)} className={`p-2.5 rounded-xl text-sm ${view === AppView.HANDBOOK ? 'bg-lime-400 text-black' : 'text-white/40'}`}>
           <i className="fas fa-book"></i>
         </button>
-        <button onClick={() => setView(AppView.STAT_LAB)} className={`p-4 rounded-2xl ${view === AppView.STAT_LAB ? 'bg-lime-400 text-black' : 'text-white/40'}`}>
+        <button onClick={() => setView(AppView.STAT_LAB)} className={`p-2.5 rounded-xl text-sm ${view === AppView.STAT_LAB ? 'bg-lime-400 text-black' : 'text-white/40'}`}>
           <i className="fas fa-bolt"></i>
         </button>
       </div>
