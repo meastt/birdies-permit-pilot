@@ -66,7 +66,7 @@ const App: React.FC = () => {
               <i className="fas fa-dove text-2xl"></i>
             </div>
             <div>
-              <span className="font-black text-2xl tracking-tighter block uppercase">Birdies Pilot</span>
+              <span className="font-black text-2xl tracking-tighter block uppercase">Birdies Permit Pilot</span>
               <span className="text-[10px] font-black text-lime-400 uppercase tracking-[0.3em]">Utah Ver. 2026</span>
             </div>
           </div>
@@ -89,7 +89,7 @@ const App: React.FC = () => {
               <span className="absolute -top-1 -right-1 bg-white text-black text-[8px] font-black px-1.5 rounded-full">0</span>
             </div>
             <div className="w-12 h-12 rounded-full border-2 border-lime-400 p-1">
-              <img src="Birdie.jpeg" alt="Birdie Avatar" className="w-full h-full rounded-full object-cover" />
+              <img src="/Birdie.jpeg" alt="Birdie Avatar" className="w-full h-full rounded-full object-cover" />
             </div>
           </div>
         </div>
