@@ -76,9 +76,20 @@ const Dashboard: React.FC<DashboardProps> = ({ stats, onNavigate }) => {
           {/* Accuracy */}
           <div className="chunky-card p-3 md:p-10 border-lime-400/20 flex flex-col items-center justify-center">
             <div className="relative w-14 h-14 md:w-40 md:h-40 flex items-center justify-center">
-              <svg className="w-full h-full -rotate-90">
-                <circle cx="50%" cy="50%" r="40%" stroke="currentColor" strokeWidth="4" fill="transparent" className="text-white/5" />
-                <circle cx="50%" cy="50%" r="40%" stroke="currentColor" strokeWidth="4" fill="transparent" strokeDasharray={88} strokeDashoffset={88 - (88 * accuracy / 100)} className="text-lime-400 transition-all duration-1000" strokeLinecap="round" />
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-white/5" />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  stroke="currentColor"
+                  strokeWidth="8"
+                  fill="transparent"
+                  strokeDasharray="251.2"
+                  strokeDashoffset={251.2 - (251.2 * accuracy / 100)}
+                  className="text-lime-400 transition-all duration-1000"
+                  strokeLinecap="round"
+                />
               </svg>
               <div className="absolute flex flex-col items-center">
                 <span className="text-sm md:text-5xl font-black">{accuracy}%</span>

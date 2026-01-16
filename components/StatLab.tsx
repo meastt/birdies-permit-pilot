@@ -11,7 +11,7 @@ const NUMERICAL_STATS = [
   { label: "Adult legal BAC limit", value: 0.05, unit: "%" },
 ];
 
-const StatLab: React.FC<{ onExit: () => void }> = ({ onExit }) => {
+const StatLab: React.FC<{ onExit: (score: number, total: number) => void }> = ({ onExit }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState<null | 'correct' | 'wrong'>(null);
@@ -31,7 +31,7 @@ const StatLab: React.FC<{ onExit: () => void }> = ({ onExit }) => {
       if (currentIdx < NUMERICAL_STATS.length - 1) {
         setCurrentIdx(prev => prev + 1);
       } else {
-        onExit();
+        onExit(score, NUMERICAL_STATS.length);
       }
     }, 1200);
   };

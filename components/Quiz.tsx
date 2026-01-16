@@ -24,8 +24,8 @@ const Quiz: React.FC<QuizProps> = ({ difficulty, isMock = false, onExit }) => {
   const [sessionQuestions] = useState(() => {
     const pool = difficulty
       ? UTAH_QUESTIONS.filter(q => q.difficulty === difficulty)
-      : isMock ? [...UTAH_QUESTIONS].sort(() => 0.5 - Math.random()).slice(0, 15)
-        : UTAH_QUESTIONS;
+      : isMock ? [...UTAH_QUESTIONS].sort(() => 0.5 - Math.random()).slice(0, 25)
+        : UTAH_QUESTIONS.slice(0, 15); // Default training session size
     return pool;
   });
 
@@ -78,17 +78,46 @@ const Quiz: React.FC<QuizProps> = ({ difficulty, isMock = false, onExit }) => {
 
   if (isFinished) {
     const passed = (score / sessionQuestions.length) >= 0.8;
+    const categoryStats = sessionQuestions.reduce((acc, q) => {
+      const cat = q.category || 'General';
+      if (!acc[cat]) acc[cat] = { total: 0, correct: 0 };
+      acc[cat].total++;
+      if (!missedIds.includes(q.id)) acc[cat].correct++;
+      return acc;
+    }, {} as Record<string, { total: number; correct: number }>);
+
     return (
-      <div className="max-w-4xl mx-auto mt-10 p-10 md:p-16 chunky-card text-center animate-in fade-in zoom-in duration-500 overflow-y-auto max-h-[85vh]">
-        <div className={`w-32 h-32 rounded-3xl flex items-center justify-center text-6xl mx-auto mb-10 rotate-3 shadow-2xl ${passed ? 'lime-gradient text-black' : 'orange-gradient text-white'}`}>
-          <i className={`fas ${passed ? 'fa-trophy' : 'fa-skull-crossbones'}`}></i>
+      <div className="max-w-4xl mx-auto mt-10 p-6 md:p-16 chunky-card text-center animate-in fade-in zoom-in duration-500 overflow-y-auto max-h-[85vh]">
+        <div className={`w-24 h-24 md:w-32 md:h-32 rounded-3xl flex items-center justify-center text-4xl md:text-6xl mx-auto mb-6 md:mb-10 rotate-3 shadow-2xl ${passed ? 'lime-gradient text-black font-black' : 'orange-gradient text-white font-black'}`}>
+          {passed ? 'A+' : 'F'}
         </div>
-        <h2 className="text-5xl font-black mb-4 uppercase italic tracking-tighter">
+
+        <h2 className="text-3xl md:text-5xl font-black mb-2 md:mb-4 uppercase italic tracking-tighter">
           {passed ? 'LEVEL CLEARED!' : 'MISSION FAILED'}
         </h2>
-        <p className="text-white/40 mb-12 text-xl font-bold uppercase tracking-widest">
+        <p className="text-white/40 mb-8 md:mb-12 text-sm md:text-xl font-bold uppercase tracking-widest">
           Score: <span className="text-white">{score}</span> / {sessionQuestions.length} ({Math.round((score / sessionQuestions.length) * 100)}%)
         </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 text-left">
+          {Object.entries(categoryStats).map(([cat, stat]) => {
+            const s = stat as { correct: number; total: number };
+            return (
+              <div key={cat} className="bg-white/5 p-4 rounded-2xl border border-white/10 flex justify-between items-center">
+                <div>
+                  <span className="block text-[8px] md:text-[10px] font-black text-white/30 uppercase tracking-widest">{cat}</span>
+                  <span className="text-sm md:text-lg font-black uppercase italic">{s.correct}/{s.total}</span>
+                </div>
+                <div className="h-2 w-20 md:w-32 bg-white/5 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full ${s.correct === s.total ? 'bg-lime-400' : 'bg-orange-500'}`}
+                    style={{ width: `${(s.correct / s.total) * 100}%` }}
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
         {loadingGuide ? (
           <div className="py-12 bg-white/5 rounded-3xl mb-10 border-2 border-dashed border-white/10">
@@ -135,7 +164,7 @@ const Quiz: React.FC<QuizProps> = ({ difficulty, isMock = false, onExit }) => {
           <div className="h-2 md:h-4 w-full bg-white/5 rounded-full p-0.5 md:p-1 border border-white/10 shadow-inner">
             <div
               className="h-full lime-gradient rounded-full transition-all duration-500 shadow-[0_0_15px_rgba(190,242,100,0.5)]"
-              style={{ width: `${((currentIdx) / sessionQuestions.length) * 100}%` }}
+              style={{ width: `${((currentIdx + 1) / sessionQuestions.length) * 100}%` }}
             ></div>
           </div>
         </div>

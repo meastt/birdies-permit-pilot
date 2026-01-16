@@ -98,7 +98,13 @@ const App: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
         {view === AppView.DASHBOARD && <Dashboard stats={stats} onNavigate={setView} />}
         {view === AppView.QUIZ && <Quiz onExit={handleQuizFinish} />}
-        {view === AppView.STAT_LAB && <StatLab onExit={() => setView(AppView.DASHBOARD)} />}
+        {view === AppView.STAT_LAB && <StatLab onExit={(score, total) => {
+          const newStats = { ...stats };
+          newStats.totalQuestionsAnswered += total;
+          newStats.correctAnswers += score;
+          setStats(newStats);
+          setView(AppView.DASHBOARD);
+        }} />}
         {view === AppView.HANDBOOK && <HandbookViewer />}
         {view === AppView.MOCK_EXAM && (
           <div className="fixed inset-0 bg-[#121212] z-[100] flex flex-col">
