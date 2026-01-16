@@ -1,0 +1,7 @@
+{
+  "name": "Birdies Permit Pilot",
+  "description": "A high-fidelity Utah Learner's Permit prep app featuring Hank the Passenger AI, a roadmap journey from St. George to Logan, and a rapid-fire Stat Lab for mastering the state's trickiest driving laws.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
